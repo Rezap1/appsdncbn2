@@ -118,14 +118,14 @@
                     <h4 class="font-bold text-[#002147] mb-6">Paling Banyak Dibaca</h4>
                     <div class="space-y-6">
                         <div class="flex gap-4 group cursor-pointer">
-                            <img src="{{ asset('img/1.jpg') }}" class="w-16 h-16 rounded-lg object-cover">
+                            <img src="{{ asset('img/.jpg') }}" class="w-16 h-16 rounded-lg object-cover">
                             <div>
                                 <h5 class="text-sm font-bold text-[#002147] group-hover:text-blue-600 transition-colors leading-snug">Jadwal Ujian Semester Genap 2026</h5>
                                 <p class="text-[10px] text-gray-400 mt-1">12 April 2026</p>
                             </div>
                         </div>
                         <div class="flex gap-4 group cursor-pointer">
-                            <img src="{{ asset('img/ks.jpg') }}" class="w-16 h-16 rounded-lg object-cover">
+                            <img src="{{ asset('img/.jpg') }}" class="w-16 h-16 rounded-lg object-cover">
                             <div>
                                 <h5 class="text-sm font-bold text-[#002147] group-hover:text-blue-600 transition-colors leading-snug">Rapat Persiapan Acara Perpisahan Kelas 6</h5>
                                 <p class="text-[10px] text-gray-400 mt-1">08 April 2026</p>
