@@ -19,35 +19,29 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @php
-                $gallery = [
-                    ['img' => '1.jpg', 'title' => ' Siswa Berprestasi Di O2SN', 'category' => 'Foto Bersama'],
-                    ['img' => '2.jpg', 'title' => 'Kegiatan Rutin Di Hari Senin', 'category' => 'UPACARA'],
-                    ['img' => 'ks.jpg', 'title' => 'Rapat Dewan Guru', 'category' => 'Kegiatan'],
-                    ['img' => '1.jpg', 'title' => 'Suasana Kelas Kreatif', 'category' => 'KBM'],
-                    ['img' => '2.jpg', 'title' => 'Latihan Olahraga Pagi', 'category' => 'Ekstrakurikuler'],
-                    ['img' => 'ks.jpg', 'title' => 'Penyambutan Tamu Sekolah', 'category' => 'Kegiatan'],
-                ];
-            @endphp
-
-            @foreach($gallery as $item)
-            {{-- 2. Bungkus dengan tag <a> dan atribut data-fancybox --}}
-            <a href="{{ asset('img/' . $item['img']) }}"
+            @forelse($galeries as $item)
+            {{--
+                SINKRONISASI: Menggunakan $item->gambar sesuai kolom di database kamu.
+                Folder diarahkan ke public/uploads/galeri/
+            --}}
+            <a href="{{ asset('uploads/galeri/' . $item->gambar) }}"
                data-fancybox="gallery-kegiatan"
-               data-caption="{{ $item['title'] }} ({{ $item['category'] }})"
+               data-caption="{{ $item->judul }}"
                class="group relative overflow-hidden rounded-2xl shadow-lg h-80 cursor-zoom-in block">
 
-                <img src="{{ asset('img/' . $item['img']) }}"
-                     alt="{{ $item['title'] }}"
+                <img src="{{ asset('uploads/galeri/' . $item->gambar) }}"
+                     alt="{{ $item->judul }}"
                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                     onerror="this.src='https://via.placeholder.com/800x600?text=Foto+Kegiatan'">
+                     onerror="this.src='https://via.placeholder.com/800x600?text=Foto+Tidak+Ditemukan'">
 
                 {{-- Overlay dengan efek muncul saat hover --}}
                 <div class="absolute inset-0 bg-gradient-to-t from-[#002147]/90 via-[#002147]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
                     <div class="flex justify-between items-center">
                         <div>
-                            <span class="text-blue-400 text-xs font-bold uppercase tracking-widest mb-2 block">{{ $item['category'] }}</span>
-                            <h3 class="text-white font-bold text-lg leading-tight">{{ $item['title'] }}</h3>
+                            <span class="text-blue-400 text-xs font-bold uppercase tracking-widest mb-2 block">
+                                Foto Kegiatan
+                            </span>
+                            <h3 class="text-white font-bold text-lg leading-tight">{{ $item->judul }}</h3>
                         </div>
                         {{-- Icon Kaca Pembesar --}}
                         <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-lg">
@@ -56,7 +50,15 @@
                     </div>
                 </div>
             </a>
-            @endforeach
+            @empty
+            {{-- Bagian ini muncul jika database kosong atau kolom salah panggil --}}
+            <div class="col-span-full text-center py-20">
+                <div class="mb-4">
+                    <i class="fas fa-images text-gray-200 text-6xl"></i>
+                </div>
+                <p class="text-gray-400 italic">Belum ada dokumentasi foto yang diunggah.</p>
+            </div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -77,7 +79,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 <script>
     Fancybox.bind("[data-fancybox='gallery-kegiatan']", {
-        // Opsi tambahan bisa ditaruh di sini
         infinite: true,
         transitionEffect: "slide"
     });

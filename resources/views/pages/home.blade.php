@@ -25,7 +25,6 @@
                 SDN Cibinong 2 berkomitmen memberikan pendidikan berkualitas untuk membentuk siswa yang siap menghadapi masa depan.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <a href="#" class="bg-blue-600 text-white px-8 py-3 rounded-md font-bold shadow-lg hover:bg-blue-700 transition">Selengkapnya &rarr;</a>
                 <a href="{{ route('profil') }}" class="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-md font-bold hover:bg-blue-50 transition">Lihat Profil Sekolah</a>
             </div>
         </div>
@@ -44,7 +43,7 @@
     </div>
 </section>
 
-{{-- SECTION STATISTIK (Tidak Absolute lagi agar tidak menimpa) --}}
+{{-- SECTION STATISTIK --}}
 <section class="bg-white -mt-16 relative z-30">
     <div class="container mx-auto px-4">
         <div class="bg-[#002147] rounded-2xl py-8 px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-white shadow-2xl">
@@ -53,7 +52,7 @@
                     <i class="fas fa-user-graduate"></i>
                 </div>
                 <div>
-                    <p class="text-xl md:text-2xl font-bold">1200+</p>
+                    <p class="text-xl md:text-2xl font-bold">300+</p>
                     <p class="text-[10px] uppercase opacity-60">Siswa Aktif</p>
                 </div>
             </div>
@@ -100,24 +99,24 @@
                 <p class="text-gray-500 text-sm leading-relaxed mb-6">
                     SDN Cibinong 2 adalah sekolah dasar yang berfokus pada pengembangan potensi siswa secara akademik maupun non-akademik dengan lingkungan belajar yang kondusif.
                 </p>
-                <a href="#" class="text-blue-600 font-bold text-sm">Baca Selengkapnya &rarr;</a>
+                <a href="{{ route('profil') }}" class="text-blue-600 font-bold text-sm">Baca Selengkapnya &rarr;</a>
             </div>
 
             {{-- Prestasi Terbaru --}}
             <div>
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-[#002147]">Prestasi Terbaru</h2>
-                    <a href="#" class="text-blue-600 text-xs font-bold uppercase">Lihat Semua</a>
+                    <a href="{{ route('prestasi') }}" class="text-blue-600 text-xs font-bold uppercase">Lihat Semua</a>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
+                    @forelse($prestasi_terbaru as $p)
                     <div>
-                        <img src="{{ asset('img/1.jpg') }}" class="h-32 w-full object-cover rounded-xl mb-2">
-                        <p class="text-[10px] font-bold text-[#002147] uppercase leading-tight">Juara 1 Lomba Debat Nasional</p>
+                        <img src="{{ asset('uploads/prestasi/' . $p->gambar) }}" class="h-32 w-full object-cover rounded-xl mb-2">
+                        <p class="text-[10px] font-bold text-[#002147] uppercase leading-tight">{{ $p->judul }}</p>
                     </div>
-                    <div>
-                        <img src="{{ asset('img/2.jpg') }}" class="h-32 w-full object-cover rounded-xl mb-2">
-                        <p class="text-[10px] font-bold text-[#002147] uppercase leading-tight">Medali Emas OSN</p>
-                    </div>
+                    @empty
+                    <p class="text-gray-400 text-xs italic col-span-2">Belum ada prestasi.</p>
+                    @endforelse
                 </div>
             </div>
 
@@ -125,23 +124,20 @@
             <div>
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-[#002147]">Berita Terbaru</h2>
-                    <a href="#" class="text-blue-600 text-xs font-bold uppercase">Lihat Semua</a>
+                    <a href="{{ route('berita') }}" class="text-blue-600 text-xs font-bold uppercase">Lihat Semua</a>
                 </div>
                 <div class="space-y-5">
+                    @forelse($berita_terbaru as $b)
                     <div class="flex gap-4">
-                        <img src="{{ asset('img/3.jpg') }}" class="w-16 h-16 rounded-lg object-cover">
+                        <img src="{{ asset($b->gambar) }}" class="w-16 h-16 rounded-lg object-cover">
                         <div>
-                            <h4 class="text-xs font-bold text-[#002147] leading-tight">Workshop Literasi Digital Siswa</h4>
-                            <p class="text-[10px] text-gray-400 mt-1">20 Mei 2026</p>
+                            <h4 class="text-xs font-bold text-[#002147] leading-tight">{{ $b->judul }}</h4>
+                            <p class="text-[10px] text-gray-400 mt-1">{{ $b->created_at->format('d M Y') }}</p>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <img src="{{ asset('img/1.jpg') }}" class="w-16 h-16 rounded-lg object-cover">
-                        <div>
-                            <h4 class="text-xs font-bold text-[#002147] leading-tight">Kunjungan Industri Kreatif</h4>
-                            <p class="text-[10px] text-gray-400 mt-1">15 Mei 2026</p>
-                        </div>
-                    </div>
+                    @empty
+                    <p class="text-gray-400 text-xs italic">Belum ada berita terbaru.</p>
+                    @endforelse
                 </div>
             </div>
 

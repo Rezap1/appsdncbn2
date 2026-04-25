@@ -69,11 +69,11 @@
             </div>
 
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center text-white text-2xl mb-6">
-                    <i class="fas fa-laptop-code"></i>
+                <div class="w-14 h-14 bg-orange-500 rounded-xl flex items-center justify-center text-white text-2xl mb-6">
+                    <i class="fas fa-running"></i>
                 </div>
-                <h3 class="text-xl font-bold text-[#002147] mb-4">Ekstrakurikuler TI</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">Pengenalan dasar teknologi informasi dan komputer sejak dini untuk menghadapi era digital.</p>
+                <h3 class="text-xl font-bold text-[#002147] mb-4">Ekstrakurikuler Olahraga</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">Mengembangkan bakat atletik dan sportivitas siswa melalui berbagai cabang olahraga prestasi.</p>
             </div>
         </div>
     </div>
