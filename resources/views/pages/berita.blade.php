@@ -1,78 +1,99 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-[#001529] min-h-screen">
-    {{-- Header Berita --}}
-    <section class="relative py-24 overflow-hidden border-b border-white/5">
-        {{-- Efek Cahaya Latar --}}
-        <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="bg-[#020617] min-h-screen text-white overflow-hidden">
+
+    {{-- HEADER --}}
+    <section class="relative py-24 md:py-28 border-b border-white/5 overflow-hidden">
+        <div class="absolute top-0 right-0 w-[550px] h-[550px] bg-cyan-500/10 rounded-full blur-[140px]"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[120px]"></div>
 
         <div class="container mx-auto px-4 text-center relative z-10">
-            <div class="inline-block px-4 py-1.5 mb-6 bg-blue-500/10 backdrop-blur-md border border-blue-500/20 rounded-full">
-                <p class="text-blue-400 font-bold text-[10px] tracking-[0.3em] uppercase">Latest Updates</p>
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-400/20 mb-6 backdrop-blur-xl">
+                <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
+                <span class="text-cyan-300 text-[10px] font-black uppercase tracking-[0.35em]">
+                    Latest Updates
+                </span>
             </div>
-            <h1 class="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tighter">
-                Berita & <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Pengumuman</span>
+
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight mb-6">
+                Berita &
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
+                    Pengumuman
+                </span>
             </h1>
-            <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed text-lg">
-                Dapatkan informasi terbaru mengenai kegiatan, prestasi, dan pengumuman resmi dari ekosistem digital SDN Cibinong 2.
+
+            <p class="max-w-3xl mx-auto text-slate-400 text-lg leading-relaxed">
+                Informasi terbaru mengenai kegiatan, prestasi, agenda sekolah,
+                dan pengumuman resmi dari SDN Cibinong 2.
             </p>
         </div>
     </section>
 
-    <section class="py-20 relative">
+
+    {{-- CONTENT --}}
+    <section class="py-20 md:py-24">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col lg:flex-row gap-16">
+            <div class="flex flex-col lg:flex-row gap-14">
 
-                {{-- Main Content: List Berita --}}
+                {{-- MAIN NEWS --}}
                 <div class="lg:w-2/3">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        @forelse($berita as $item)
-                        <article class="group relative bg-white/5 rounded-[2.5rem] overflow-hidden border border-white/10 hover:border-blue-500/30 transition-all duration-500 shadow-2xl flex flex-col h-full">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                            {{-- Image Wrapper --}}
+                        @forelse($berita as $item)
+                        <article class="group bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl hover:border-cyan-400/20 transition-all duration-500 flex flex-col">
+
+                            {{-- Image --}}
                             <div class="relative overflow-hidden h-56">
                                 <img src="{{ asset($item->gambar) }}"
                                      alt="{{ $item->judul }}"
-                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                     onerror="this.src='https://via.placeholder.com/800x600?text=Berita+Tanpa+Gambar'">
+                                     class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                                     onerror="this.src='https://via.placeholder.com/800x600?text=No+Image'">
 
-                                <div class="absolute top-6 left-6">
-                                    <span class="bg-blue-600 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl backdrop-blur-md border border-white/20">
+                                <div class="absolute top-5 left-5">
+                                    <span class="px-4 py-1.5 rounded-full bg-cyan-500 text-slate-950 text-[9px] font-black uppercase tracking-[0.25em] shadow-lg">
                                         {{ $item->kategori ?? 'Berita' }}
                                     </span>
                                 </div>
                             </div>
 
-                            {{-- Content --}}
-                            <div class="p-8 flex flex-col flex-grow">
-                                <div class="flex items-center text-blue-400 text-[10px] font-black uppercase tracking-widest mb-4">
-                                    <i class="far fa-calendar-alt mr-2"></i>
+                            {{-- Body --}}
+                            <div class="p-7 flex flex-col flex-grow">
+
+                                <div class="flex items-center gap-2 text-cyan-400 text-[10px] font-black uppercase tracking-[0.25em] mb-4">
+                                    <i class="far fa-calendar-alt"></i>
                                     {{ $item->created_at->format('d M Y') }}
                                 </div>
 
-                                <h3 class="text-xl font-bold text-white mb-4 leading-tight group-hover:text-blue-400 transition-colors">
-                                    <a href="#">{{ $item->judul }}</a>
+                                <h3 class="text-xl font-bold text-white leading-tight mb-4 group-hover:text-cyan-300 transition-colors">
+                                    {{ $item->judul }}
                                 </h3>
 
-                                <p class="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3 font-medium">
+                                <p class="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3">
                                     {{ Str::limit(strip_tags($item->isi), 120) }}
                                 </p>
 
-                                <div class="mt-auto pt-6 border-t border-white/5">
-                                    <a href="#" class="text-white font-black text-[10px] uppercase tracking-[0.2em] flex items-center group/btn hover:text-blue-400 transition-all">
-                                        Selengkapnya
-                                        <i class="fas fa-chevron-right ml-3 text-[8px] transform group-hover/btn:translate-x-2 transition-transform"></i>
+                                <div class="mt-auto pt-5 border-t border-white/5">
+                                    <a href="#"
+                                       class="inline-flex items-center gap-3 text-cyan-300 font-black text-[10px] uppercase tracking-[0.25em] hover:gap-4 transition-all">
+                                        Baca Selengkapnya
+                                        <i class="fas fa-arrow-right text-[9px]"></i>
                                     </a>
                                 </div>
                             </div>
+
                         </article>
                         @empty
-                        <div class="col-span-full text-center py-20 bg-white/5 rounded-[3rem] border border-dashed border-white/10">
-                            <i class="fas fa-newspaper text-slate-700 text-5xl mb-4 block"></i>
-                            <p class="text-slate-500 italic">Belum ada berita yang dipublikasikan dalam arsip.</p>
+                        <div class="col-span-full text-center py-28 rounded-[2.5rem] border border-dashed border-white/10 bg-white/5">
+                            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-white/5 flex items-center justify-center">
+                                <i class="fas fa-newspaper text-4xl text-slate-600"></i>
+                            </div>
+                            <p class="text-slate-500 italic">
+                                Belum ada berita yang dipublikasikan.
+                            </p>
                         </div>
                         @endforelse
+
                     </div>
 
                     {{-- Pagination --}}
@@ -81,66 +102,84 @@
                     </div>
                 </div>
 
-                {{-- Sidebar --}}
-                <aside class="lg:w-1/3 space-y-10">
 
-                    {{-- Search Box --}}
-                    <div class="bg-white/5 p-8 rounded-[2.5rem] border border-white/10 relative overflow-hidden group">
-                        <div class="absolute -right-4 -top-4 w-20 h-20 bg-blue-600/10 rounded-full blur-2xl group-hover:bg-blue-600/20 transition-all"></div>
-                        <h4 class="font-black text-white text-xs uppercase tracking-[0.3em] mb-6">Cari Berita</h4>
+                {{-- SIDEBAR --}}
+                <aside class="lg:w-1/3 space-y-8">
+
+                    {{-- SEARCH --}}
+                    <div class="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[2rem] p-7 shadow-xl">
+                        <h4 class="text-xs font-black uppercase tracking-[0.3em] text-white mb-6">
+                            Cari Berita
+                        </h4>
+
                         <div class="relative">
-                            <input type="text" placeholder="Kata kunci..."
-                                class="w-full bg-[#001529] px-6 py-4 rounded-2xl border border-white/10 focus:border-blue-500 focus:ring-0 text-white text-sm placeholder:text-slate-600 transition-all">
-                            <button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-blue-400 transition-colors">
+                            <input type="text"
+                                   placeholder="Cari artikel..."
+                                   class="w-full bg-[#020617] border border-white/10 rounded-2xl px-5 py-4 text-sm text-white placeholder:text-slate-600 focus:border-cyan-400 outline-none transition">
+
+                            <button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-cyan-400 transition">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </div>
 
-                    {{-- Categories --}}
-                    <div class="bg-white/5 p-8 rounded-[2.5rem] border border-white/10">
-                        <h4 class="font-black text-white text-xs uppercase tracking-[0.3em] mb-8">Kategori</h4>
-                        <ul class="space-y-4">
-                            <li class="group cursor-pointer">
-                                <div class="flex justify-between items-center p-4 bg-[#001529]/50 rounded-2xl border border-white/5 group-hover:border-blue-500/30 transition-all">
-                                    <span class="text-sm text-slate-400 group-hover:text-white font-bold transition-colors">Kegiatan Sekolah</span>
-                                    <span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded-lg text-[8px] font-black uppercase">New</span>
-                                </div>
-                            </li>
-                            <li class="group cursor-pointer">
-                                <div class="flex justify-between items-center p-4 bg-[#001529]/50 rounded-2xl border border-white/5 group-hover:border-blue-500/30 transition-all">
-                                    <span class="text-sm text-slate-400 group-hover:text-white font-bold transition-colors">Akademik</span>
-                                    <span class="bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-lg text-[8px] font-black uppercase">Hot</span>
-                                </div>
-                            </li>
-                        </ul>
+
+                    {{-- CATEGORY --}}
+                    <div class="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[2rem] p-7 shadow-xl">
+                        <h4 class="text-xs font-black uppercase tracking-[0.3em] text-white mb-6">
+                            Kategori
+                        </h4>
+
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/20 transition cursor-pointer">
+                                <span class="text-sm font-semibold text-slate-300">Kegiatan Sekolah</span>
+                                <span class="text-[9px] px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 font-black uppercase">New</span>
+                            </div>
+
+                            <div class="flex justify-between items-center p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-cyan-400/20 transition cursor-pointer">
+                                <span class="text-sm font-semibold text-slate-300">Akademik</span>
+                                <span class="text-[9px] px-3 py-1 rounded-full bg-blue-500/10 text-blue-300 font-black uppercase">Hot</span>
+                            </div>
+                        </div>
                     </div>
 
-                    {{-- Popular Posts --}}
-                    <div class="bg-white/5 p-8 rounded-[2.5rem] border border-white/10">
-                        <h4 class="font-black text-white text-xs uppercase tracking-[0.3em] mb-8">Paling Populer</h4>
-                        <div class="space-y-8">
-                            @foreach($berita->take(2) as $populer)
-                            <div class="flex gap-5 group cursor-pointer">
-                                <div class="relative shrink-0 w-20 h-20 rounded-2xl overflow-hidden border border-white/10">
+
+                    {{-- POPULAR POSTS --}}
+                    <div class="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-[2rem] p-7 shadow-xl">
+                        <h4 class="text-xs font-black uppercase tracking-[0.3em] text-white mb-6">
+                            Populer
+                        </h4>
+
+                        <div class="space-y-6">
+                            @foreach($berita->take(3) as $populer)
+                            <div class="flex gap-4 group cursor-pointer">
+
+                                <div class="w-20 h-20 rounded-2xl overflow-hidden border border-white/10 shrink-0">
                                     <img src="{{ asset($populer->gambar) }}"
-                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                         class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                                          onerror="this.src='https://via.placeholder.com/150?text=News'">
                                 </div>
+
                                 <div class="flex flex-col justify-center">
-                                    <h5 class="text-sm font-bold text-slate-200 group-hover:text-blue-400 transition-colors leading-snug mb-2">
-                                        {{ Str::limit($populer->judul, 45) }}
+                                    <h5 class="text-sm font-bold text-slate-200 leading-snug group-hover:text-cyan-300 transition">
+                                        {{ Str::limit($populer->judul, 50) }}
                                     </h5>
-                                    <p class="text-[9px] text-slate-500 font-black uppercase tracking-widest italic">{{ $populer->created_at->format('d M Y') }}</p>
+
+                                    <p class="text-[9px] mt-2 text-slate-500 font-black uppercase tracking-[0.2em]">
+                                        {{ $populer->created_at->format('d M Y') }}
+                                    </p>
                                 </div>
+
                             </div>
                             @endforeach
                         </div>
                     </div>
+
                 </aside>
 
             </div>
         </div>
     </section>
+
 </div>
 @endsection
